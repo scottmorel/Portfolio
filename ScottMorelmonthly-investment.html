@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Monthly Investment Growth</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 1.1em;
+    }
+    #container {
+      width: 600px;
+      margin: auto;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      padding: 10px;
+      background-color: #cfe2cf; /* darkseagreen 85% */
+      color: darkslategray;
+    }
+    #container p {
+      margin: 5px 0px;
+    }
+    fieldset {
+      width: 500px;
+      display: flex;
+      flex-flow: column nowrap;
+      padding: 10px;
+      background-color: darkseagreen;
+    }
+    legend {
+      font-weight: bold;
+      font-size: 1em;
+    }
+    label {
+      margin-top: 10px;
+      padding: 1px;
+      font-size: .9em;
+    }
+    input, button {
+      font-size: 1.1em;
+      background-color: #cfe2cf;
+      color: darkslategray;
+    }
+    button {
+      height: 2em;
+      margin: 15px 0px;
+    }
+    button:hover {
+      background-color: darkslategray;
+      color: #cfe2cf;
+    }
+    #output {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h2>Monthly Investment Growth</h2>
+    <p>This calculator displays a table showing how an investment account grows monthly at a given APR (annual percentage rate).</p>
+    <p>Enter the amount you intend to invest, your target APR, and the number of years you want to track.</p>
+    <fieldset>
+      <legend>Enter data for calculation</legend>
+      <label for="principal">Initial Investment ($)</label> 
+      <input type="number" id="principal" min="0" step="100" value="40000">
+      <label for="apr">APR (%)</label>
+      <input type="number" id="apr" min="0" max="10" step="0.1" value="5">
+      <label for="term">Term (in years)</label>
+      <input type="number" id="term" min="1" max="60" step="1" value="20">
+      <button onclick="createTable()">Display Monthly Growth</button>
+    </fieldset>
+    <p id="output"></p>
+  </div>
+  <script>
+    "use strict";
+    function createTable() {
+      //define balance
+      let balance = parseFloat(document.getElementById("principal").value);
+      //define apr
+      let apr = parseFloat(document.getElementById("apr").value);
+      //define term
+      let term = parseInt(document.getElementById("term").value);
+      //display title of table "Monthly Investment Growth"
+      document.getElementById("output").innerHTML = "Monthly Investment Growth<br>";
+      //Initial balance
+      document.getElementById("output").innerHTML += "The initial balance is $ " + balance + "<br>";
+      //headings
+      document.getElementById("output").innerHTML += "Month     Interest Earned     Balance<br>";
+      //declare loop variables
+      let interest, newBalance;
+      //Calculation
+      for ( let month = 1; month <= term * 12; month++) {
+        interest = balance * apr/12/100;
+        newBalance = balance + interest;  
+        document.getElementById("output").innerHTML += month + "      " + interest.toFixed(2) + "     " + newBalance.toFixed(2) + "<br>";
+      //set balance for new cycle
+        balance = newBalance;
+      }
+    }
+  </script>
+</body>
+</html>
