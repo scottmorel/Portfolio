@@ -1,0 +1,1 @@
+This is a monthly investment calulator I did as an assignment for my Programming 1 class.  It allows you to input initial deposit, interest rate, and amount of time and output how much money you would make in interest each month.
